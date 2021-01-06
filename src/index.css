@@ -1,4 +1,4 @@
-body {
+/*body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +10,56 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+*/
+
+.pageSliderLeft-enter {
+  transform: translate3d(100%, 0, 0);
+}
+.pageSliderLeft-enter.pageSliderLeft-enter-active {
+  transform: translate3d(0, 0, 0);
+  transition: all 600ms;
+}
+.pageSliderLeft-exit {
+  transform: translate3d(0, 0, 0);
+}
+.pageSliderLeft-exit.pageSliderLeft-exit-active {
+  transform: translate3d(100%, 0, 0);
+  transition: all 600ms;
+}
+
+.pageSliderRight-enter {
+  transform: translate3d(-100%, 0, 0);
+}
+.pageSliderRight-enter.pageSliderRight-enter-active {
+  transform: translate3d(0, 0, 0);
+  transition: all 600ms;
+}
+.pageSliderRight-exit {
+  transform: translate3d(0, 0, 0);
+}
+.pageSliderRight-exit.pageSliderRight-exit-active {
+  transform: translate3d(-100%, 0, 0);
+  transition: all 600ms;
+}
+
+form {
+	margin: auto;
+	width: 47%;
+}
+#eael-password {
+    width: 500px;
+    color: #333333;
+    background-color: #ffffff;
+}
+input.eael-submit {
+    color: #ffffff;
+    background-color: #e678b3;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: 1px solid #333;
+    border-radius: 0;
+    font-size: 1em;
+    line-height: 1em;
+    border: none;
 }

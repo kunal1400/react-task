@@ -1,0 +1,18 @@
+/*
+Theme Name: 	UpTheme Child
+Author: 		uPress
+Description:    Child theme for UpTheme
+Version: 		1.0
+License:		GNU General Public License v3 or later
+License URI:	https://www.gnu.org/licenses/gpl-3.0.html
+Template:       uptheme
+Text Domain:	uptheme-child
+*/
+
+/* Your custom code goes here! */
+.elementor-container.elementor-column-gap-default {
+    max-width: 100% !important;
+}
+.uptheme-page-header{
+	display:none;
+}
