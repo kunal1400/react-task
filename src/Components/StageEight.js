@@ -1,29 +1,83 @@
 import React, { Component } from 'react'
 import renderHTML from 'react-render-html';
-
+import _ from 'lodash';
+import FormSection from './formSection.js';
+import Fullbgimage from './fullbgimage.js';
+import Leftimagerightcontent from './leftimagerightcontent.js';
+import Leftcontentrightmap from './leftcontentrightmap.js';
+import Rightcontentleftimage from './rightcontentleftimage.js';
+import Fullmap from './fullmap.js';
+import CenterMap from './centerMap.js';
+const data = {
+  step_name: "Eight",
+  data: [{
+    layout: "fullbgimage",
+    imageurl: "",
+    heading: "Level 8",
+    content: "",
+  },
+  {
+    layout: "leftimagerightcontent",
+    imageurl: "",
+    heading: "",
+    content: "",
+  },
+  {
+    layout: "fullmap",
+    imageurl: "",
+    heading: "",
+    content: "",
+  },
+  {
+    layout: "leftcontentrightmap",
+    mapurl: "",
+    heading: "",
+    content: "",
+  },
+  {
+    layout: "rightcontentleftimage",
+    imageurl: "",
+    heading: "",
+    content: "",
+  },
+  {
+    layout: "centerMap",
+    imageurl: "",
+    heading: "",
+    content: "",
+  },
+  {
+    layout: "formSection",
+    mapurl: "",
+    heading: "",
+    content: "",
+  }],
+  next_stepurl: "",
+  answer: "",
+}
 class Eight extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      content: "",
+      data: [],
       error: null,
       pageId: 4499,
       showForm: false,
       nextStepPassword: "SUNBOOKPOINT1983"
     }
-  }  
+  }
 
-  componentDidMount() {    
-    fetch(`http://reactdemo.play-it.co.il/wp-json/wp/v2/pages/${this.state.pageId}`)
+  componentDidMount() {
+    fetch(`http://reactdemo.play-it.co.il/wp-json/created_json/v1/pages/${this.state.pageId}`)
     // fetch(`http://reactdemo.play-it.co.il/wp-json/MyPlugin/v1/pages/${this.state.pageId}/contentElementor`)
     .then(res => res.json())
     .then((result) => {
-        window.scroll(0,0)    
+        window.scroll(0,0)
         console.log(result)
         this.setState({
-          showForm: true,          
-          content: result.content.rendered
+          showForm: true,
+          data: result.data
         });
       },
       (error) => {
@@ -34,7 +88,7 @@ class Eight extends Component {
     )
   }
 
-  submitForm(e) {    
+  submitForm(e) {
     e.preventDefault()
     var value = document.getElementById("eael-password").value
     if( this.state.nextStepPassword == value ) {
@@ -45,37 +99,41 @@ class Eight extends Component {
     }
   }
 
+  comprender (data) {
+    if (data.layout === "fullbgimage") {
+      return (<Fullbgimage data ={data} {...this.props}/>)
+    }
+    if (data.layout === "formSection") {
+      return (<FormSection data ={data} {...this.props}/>)
+    }
+    if (data.layout === "leftimagerightcontent") {
+      return (<Leftimagerightcontent data ={data} {...this.props}/>)
+    }
+    if (data.layout === "leftcontentrightmap") {
+      return (<Leftcontentrightmap data ={data} {...this.props}/>)
+    }
+    if (data.layout === "fullmap") {
+      return (<Fullmap data ={data} {...this.props}/>)
+    }
+    if (data.layout === "rightcontentleftimage") {
+      return (<Rightcontentleftimage data ={data} {...this.props}/>)
+    }
+    if (data.layout === "centerMap") {
+      return (<CenterMap data ={data} {...this.props}/>)
+    }
+
+  }
+
   render() {
+    console.log(this.state.data, 'kkkkkkkkk')
+    let self = this
     return <div>
-      { renderHTML(this.state.content) }
-      { this.state.showForm === true ? 
-        <section data-particle_enable="false" data-particle-mobile-disabled="false" className="elementor-section elementor-top-section elementor-element elementor-element-4332eca5 elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="4332eca5" data-element_type="section">
-          <div className="elementor-container elementor-column-gap-default">
-            <div className="elementor-row">
-              <div className="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-4f506330" data-id="4f506330" data-element_type="column">
-                <div className="elementor-column-wrap elementor-element-populated">
-                  <div className="elementor-widget-wrap">
-                    <div className="elementor-element elementor-element-722116fe elementor-invisible elementor-widget elementor-widget-eael-protected-content" data-id="722116fe" data-element_type="widget" data-settings="{&quot;_animation&quot;:&quot;fadeInUp&quot;,&quot;_animation_delay&quot;:500}" data-widget_type="eael-protected-content.default">
-                  <div className="elementor-widget-container">
-                    <div className="eael-protected-content-message">
-                      <div className="eael-protected-content-message-text"></div>
-                    </div>
-                    <div className="eael-password-protected-content-fields">
-                      <form onSubmit={this.submitForm.bind(this)} method="post">
-                        Password: {this.state.nextStepPassword}
-                        <input type="password" name="protection_password_722116fe" id="eael-password" placeholder="Enter Password" />
-                        <input type="submit" className="eael-submit" value="Submit" />
-                      </form>
-                    </div>   
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
-        </section>
-      : ""}
+      {_.get(this.state, 'data', []).map((data, i)=>{
+          return (
+            this.comprender(data)
+          )
+        })
+      }
     </div>
   }
 }
